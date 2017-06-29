@@ -1,0 +1,54 @@
+<div class="row">
+    <div class="col-lg-6 col-lg-offset-3">
+        <div class="box box-primary direct-chat direct-chat-primary">
+            <div class="box-header with-border">
+                <h3 class="box-title">Creazione Utente</h3>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-xs-10 col-xs-offset-1" style="margin-top:20px; margin-bottom:20px;">
+                        <div class="form-group">
+                            <label for="nome">Nome</label>
+                            <input type="text" class="form-control" id="nome" placeholder="Inserire il nome dell'utente..." ng-model="ctrl.user.name">
+                        </div>
+                        <div class="form-group">
+                            <label for="cognome">Cognome</label>
+                            <input type="text" class="form-control" id="cognome" placeholder="Inserire il cognome dell'utente..." ng-model="ctrl.user.surname">
+                        </div>
+                        <div class="form-group">
+                            <label for="username">Username</label>
+                            <input type="text" class="form-control" id="username" placeholder="Inserire l'username dell'utente..." ng-model="ctrl.user.username">
+                        </div>
+                        <div class="form-group">
+                            <label for="ruoli">Ruolo</label> <br>
+                            <select name="ruoli" id="ruoli" ng-model="ctrl.user.role">
+                                <option value="admin">Amministratore</option>
+                                <option value="manager">Gestore Magazzino</option>
+                                <option value="warehouseman">Magazziniere</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="pwd">Password</label>
+                            <input type="password" class="form-control" id="pwd" placeholder="Inserire la password dell'utente..." ng-model="ctrl.user.password">
+                        </div>
+
+                        <div class="callout callout-danger" ng-if="ctrl.invalidRegistration">
+                            <h4><i class="icon fa fa-warning"></i> Attenzione!</h4>
+                            Le credenziali inserite non sono corrette!
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <!-- /.box-body -->
+            <div class="box-footer">
+                <button class="btn btn-primary pull-right" ng-click="ctrl.registration()">
+                    Registra
+                </button>
+            </div>
+            <!-- /.box-footer-->
+        </div>
+    </div>
+
+</div>

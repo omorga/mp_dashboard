@@ -1,0 +1,324 @@
+<div class="row">
+
+  <div class="col-xs-12" ng-show="ctrl.showOrder == null">
+    <div class="box box-info">
+      <div class="box-header">
+        <h3 class="box-title">Ordini in entrata</h3>
+
+        <div class="box-tools">
+          <div class="input-group input-group-sm" style="width: 150px;">
+            <input name="table_search" class="form-control pull-right" placeholder="Search" type="text">
+
+            <div class="input-group-btn">
+              <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- /.box-header -->
+      <div class="box-body table-responsive no-padding">
+        <table class="table table-hover">
+          <!-- <li ng-repeat="commEntry in ctrl.commissions" style="cursor:pointer" ng-click="ctrl.go(menuentry.state)"> -->
+
+          <tbody>
+          <tr data-toggle="collapse" data-target="#demo1" class="accordion-toggle">
+            <th>Data</th>
+            <th>Tempi di Spedizione</th>
+            <th>Destinatario</th>
+            <th>Numero</th>
+            <th>Mittente</th>
+            <th>Stato</th>
+            <th>Gestione</th>
+          </tr>
+
+          <!--<tr>-->
+          <!--<td colspan="6" class="hiddenRow">-->
+          <!--<div class="accordion-body collapse" id="demo1">Demo1</div>-->
+          <!--</td>-->
+          <!--</tr>-->
+
+          <tr ng-repeat="commEntry in ctrl.inCommissions">
+            <td>{{commEntry.commission.date}}</td>
+            <td>{{commEntry.commission.deliveryTime}}</td>
+            <td>{{commEntry.commission.destination}}</td>
+            <td>{{commEntry.commission.number}}</td>
+            <td>{{commEntry.commission.source}}</td>
+            <td ng-show="{{commEntry.commission.completed}} == false"><span
+              class="label label-warning">Incompleto</span>
+            </td>
+            <td ng-show="{{commEntry.commission.completed}} == true"><span class="label label-success">Completo</span>
+            </td>
+            <td>
+              <button type="submit" ng-click="ctrl.showOrderFn(commEntry)" class="btn btn-primary">
+                Gestisci
+              </button>
+            </td>
+          </tr>
+
+
+          </tbody>
+        </table>
+      </div>
+      <!-- /.box-body -->
+    </div>
+    <!-- /.box -->
+  </div>
+
+
+  <div class="col-xs-12" ng-show="ctrl.showOrder != null">
+    <div class="box">
+      <div class="box-header">
+        <h3 class="box-title">Riepilogo Ordine</h3>
+
+        <!-- /.box-header -->
+        <div class="box-body table-responsive no-padding">
+          <table class="table table-hover">
+            <tbody>
+            <tr>
+              <th>Data</th>
+              <th>Tempi di Spedizione</th>
+              <th>Destinatario</th>
+              <th>Numero</th>
+              <th>Mittente</th>
+            </tr>
+            <td>{{ctrl.showOrder.commission.date}}</td>
+            <td>{{ctrl.showOrder.commission.deliveryTime}}</td>
+            <td>{{ctrl.showOrder.commission.destination}}</td>
+            <td>{{ctrl.showOrder.commission.number}}</td>
+            <td>{{ctrl.showOrder.commission.source}}</td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+        <!-- /.box-body -->
+      </div>
+    </div>
+    <!-- /.box -->
+  </div>
+
+
+  <div class="col-xs-12" ng-show="ctrl.showOrder.commission.destination == 'FoodEmperors' ">
+    <div class="box">
+      <div class="box-header">
+
+        <h3 class="box-title">Lotti contenuti</h3>
+        <!-- /.box-header -->
+      </div>
+      <div class="box-body table-responsive no-padding">
+        <table class="table table-hover">
+
+
+          <tbody>
+          <tr>
+            <th>Prodotto</th>
+            <th>Data di Spedizione</th>
+            <th>Data di scadenza</th>
+            <th>Quantità</th>
+            <th>Ricevuto</th>
+            <th>Segnalazione</th>
+          </tr>
+
+          <tr ng-repeat="commEntry in ctrl.showOrder.batches">
+            <td>
+              <button type="button" class="btn btn-default" data-toggle="modal"
+                      data-target="#modal-default" ng-click="ctrl.showProductFn(commEntry.product)" )>
+                {{commEntry.product.name}}
+              </button>
+            </td>
+            <td>{{commEntry.delDate}}</td>
+            <td>{{commEntry.expDate}}</td>
+            <td>{{commEntry.quantity}}</td>
+            <td ng-show="{{commEntry.status}} == 0"><input type="checkbox" ng-model='checkStatus'
+                                                           ng-click="ctrl.toggle(commEntry,checkStatus)">
+            </td>
+            <td ng-show="{{commEntry.status}} == 2"><span class="glyphicon glyphicon-ok"></span></td>
+            <td ng-show="{{commEntry.status}} == 3"><i class="icon fa fa-warning"></i> Prodotto
+              Segnalato!
+            </td>
+            <td>
+              <button type="button" class="btn btn-warning" ng-show="{{commEntry.status}} == 0"
+                      data-toggle="modal" data-target="#modal-segnalation"
+                      ng-click="ctrl.signalProductFn(commEntry.product)"> Segnala
+              </button>
+            </td>
+          </tr>
+
+
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <button type="button" ng-disabled="ctrl.deliveredProducts.length == 0" class="btn btn-primary pull-left"
+            data-toggle="modal" data-target="#modal-confirmation">
+      Conferma
+    </button>
+
+    <button type="button" class="btn btn-primary pull-right" ng-click="ctrl.showOrderFn(null)">
+      Indietro
+    </button>
+
+
+    <!-- /.box-body -->
+  </div>
+  <!-- /.box -->
+
+  <div class="modal fade" id="modal-default" style="display: none;">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span></button>
+          <h4 class="modal-title">Descrizione Articolo</h4>
+        </div>
+        <div class="modal-body">
+          <div class="table-responsive">
+            <table class="table table-bordered table-condensed table-hover">
+              <tbody>
+              <tr>
+                <th>Prodotto</th>
+                <th>Azienda</th>
+                <th>Proprietà</th>
+                <th>Tempo Consegna</th>
+                <th>Prezzo Unit.</th>
+                <th>Categoria</th>
+              </tr>
+              <tr>
+                <td>{{ctrl.showProduct.name}}</td>
+                <td>{{ctrl.showProduct.stockist}}</td>
+                <td><span class="label label-success"
+                          ng-repeat="property in ctrl.showProduct.properties">{{property}}</span></td>
+                <td>{{ctrl.showProduct.averageDeliveryTime}} g</td>
+                <td>{{ctrl.showProduct.price | currency:'€'}}</td>
+                <td><span class="label label-success">{{ctrl.showProduct.category.id}}</span></td>
+
+              </tr>
+
+              </tbody>
+            </table>
+          </div>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary pull-left" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+  </div>
+
+</div>
+
+
+<div class="modal fade" id="modal-confirmation" style="display: none;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">×</span></button>
+        <h4 class="modal-title">Conferma Prodotti Ricevuti</h4>
+      </div>
+      <div class="modal-body">
+        <div class="box">
+          <div class="box-body table-responsive no-padding">
+            <table class="table table-hover">
+              <tbody>
+              <tr>
+                <th>Prodotto</th>
+                <th>Data di Spedizione</th>
+                <th>Data di scadenza</th>
+                <th>Quantità</th>
+              </tr>
+
+              <tr ng-repeat="commEntry in ctrl.deliveredProducts">
+                <td>{{commEntry.product.name}}</td>
+                <td>{{commEntry.delDate}}</td>
+                <td>{{commEntry.expDate}}</td>
+                <td>{{commEntry.quantity}}</td>
+              </tr>
+
+
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary pull-left" data-dismiss="modal"
+                  ng-click="ctrl.confirmDeliveredProduct()">Confirm
+          </button>
+          <button type="button" class="btn btn-primary pull-right" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+  </div>
+
+</div>
+
+
+<div class="modal fade" id="modal-segnalation" style="display: none;">
+  <div class="modal-dialog">
+    <div class="box box-warning">
+      <div class="modal-content ">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span></button>
+          <h4 class="modal-title">Segnalazione prodotto {{ctrl.signalProduct.name}}</h4>
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body">
+          <label>Selezionare il motivo della segnalazione</label>
+          <!-- checkbox -->
+          <div class="checkbox">
+            <label>
+              <input type="checkbox" ng-click="ctrl.signalToggle('Quantità errata')">
+              Quantità errata
+            </label>
+          </div>
+
+          <div class="checkbox">
+            <label>
+              <input type="checkbox" ng-click="ctrl.signalToggle('Prodotto scaduto')">
+              Prodotto scaduto
+            </label>
+          </div>
+
+          <div class="checkbox">
+            <label>
+              <input type="checkbox" ng-click="ctrl.signalToggle('Prodotto errato')">
+              Prodotto errato
+            </label>
+          </div>
+
+
+          <div class="checkbox">
+            <label>
+              <input type="checkbox" ng-click="ctrl.signalToggle('Prodotto difettato')">
+              Prodotto difettato
+            </label>
+          </div>
+          <div class="form-group">
+            <label>Altro: </label>
+            <textarea class="form-control" rows="3" ng-model="ctrl.textSignaled"
+                      placeholder="Enter ..."></textarea>
+          </div>
+          </form>
+        </div>
+
+        <!-- /.box-body -->
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary pull-left" data-dismiss="modal"
+                ng-click="ctrl.sendSignaledProduct()">Confirm
+        </button>
+        <button type="button" class="btn btn-primary pull-right" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+
