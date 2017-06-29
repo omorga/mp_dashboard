@@ -1,0 +1,152 @@
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box box-info">
+            <div class="box-header">
+                <h3 class="box-title">Ordini in Effettuati</h3>
+
+                <div class="box-tools">
+                    <div class="input-group input-group-sm" style="width: 150px;">
+                        <input name="table_search" class="form-control pull-right" placeholder="Search" type="text">
+
+                        <div class="input-group-btn">
+                            <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body table-responsive no-padding">
+                <table class="table table-hover">
+                    <!-- <li ng-repeat="commEntry in ctrl.commissions" style="cursor:pointer" ng-click="ctrl.go(menuentry.state)"> -->
+
+                    <tbody>
+                    <tr data-toggle="collapse" data-target="#demo1" class="accordion-toggle">
+                        <th>Data</th>
+                        <th>Tempi di Spedizione</th>
+                        <th>Destinatario</th>
+                        <th>Numero</th>
+                        <th>Mittente</th>
+                        <th>Stato</th>
+                        <th>Visualizzazione</th>
+                    </tr>
+
+                    <!--<tr>-->
+                    <!--<td colspan="6" class="hiddenRow">-->
+                    <!--<div class="accordion-body collapse" id="demo1">Demo1</div>-->
+                    <!--</td>-->
+                    <!--</tr>-->
+
+                    <tr ng-repeat="commEntry in ctrl.inCommissions">
+                        <td>{{commEntry.commission.date}}</td>
+                        <td>{{commEntry.commission.deliveryTime}}</td>
+                        <td>{{commEntry.commission.destination}}</td>
+                        <td>{{commEntry.commission.number}}</td>
+                        <td>{{commEntry.commission.source}}</td>
+                        <td ng-show="commEntry.commission.completed"><span class="label label-success">Completo</span>
+                        </td>
+                        <td>
+                            <button type="submit" ng-click="ctrl.showOrderFn(commEntry)" class="btn btn-primary"
+                                    data-toggle="modal" data-target="#modal-showOrder">
+                                Visualizza
+                            </button>
+                        </td>
+                    </tr>
+
+
+                    </tbody>
+                </table>
+            </div>
+            <!-- /.box-body -->
+        </div>
+        <!-- /.box -->
+    </div>
+
+    <div class="modal fade" id="modal-showOrder" style="display: none;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span></button>
+
+                    <div class="col-xs-12" ng-show="ctrl.showOrder != null">
+                        <div class="box">
+                            <div class="box-header">
+                                <h3 class="box-title">Riepilogo Ordine</h3>
+
+                                <!-- /.box-header -->
+                                <div class="box-body table-responsive no-padding">
+                                    <table class="table table-hover">
+                                        <tbody>
+                                        <tr>
+                                            <th>Data</th>
+                                            <th>Tempi di Spedizione</th>
+                                            <th>Destinatario</th>
+                                            <th>Numero</th>
+                                            <th>Mittente</th>
+                                        </tr>
+                                        <td>{{ctrl.showOrder.commission.date}}</td>
+                                        <td>{{ctrl.showOrder.commission.deliveryTime}}</td>
+                                        <td>{{ctrl.showOrder.commission.destination}}</td>
+                                        <td>{{ctrl.showOrder.commission.number}}</td>
+                                        <td>{{ctrl.showOrder.commission.source}}</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <!-- /.box-body -->
+                            </div>
+                        </div>
+                        <!-- /.box -->
+                    </div>
+
+
+                </div>
+                <div class="modal-body">
+
+                    <div class="col-xs-12">
+                        <div class="box">
+                            <div class="box-header">
+
+                                <h3 class="box-title">Lotti contenuti</h3>
+                                <!-- /.box-header -->
+                            </div>
+                            <div class="box-body table-responsive no-padding">
+                                <table class="table table-hover">
+                                    <tbody>
+                                    <tr>
+                                        <th>Prodotto</th>
+                                        <th>Categoria</th>
+                                        <th>Data di Spedizione</th>
+                                        <th>Data di scadenza</th>
+                                        <th>Quantità</th>
+                                        <th>Ricevuto</th>
+                                    </tr>
+
+                                    <tr ng-repeat="commEntry in ctrl.showOrder.batches">
+                                        <td>{{commEntry.product.name}}</td>
+                                        <td>{{commEntry.product.category.id}}</td>
+                                        <td>{{commEntry.delDate}}</td>
+                                        <td>{{commEntry.expDate}}</td>
+                                        <td>{{commEntry.quantity}}</td>
+                                        <td><span class="glyphicon glyphicon-ok"></span></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- /.box-body -->
+                    </div>
+                    <!-- /.box -->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary pull-left" ng-click="ctrl.showOrderFn(null)"
+                            data-dismiss="modal">Close
+                    </button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+

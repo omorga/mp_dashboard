@@ -9,10 +9,6 @@
 
         var ctrl = this;
 
-
-
-
-
         ctrl.collapsemenu = false;
 
         ctrl.openmenu = false;

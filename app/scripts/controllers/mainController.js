@@ -5,7 +5,6 @@
 
     var ctrl = this;
 
-
   }];
 
   MainCtrl.$inject = ['$scope', '$rootScope', '$compile'];

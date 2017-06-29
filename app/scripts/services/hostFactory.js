@@ -5,7 +5,7 @@
     function hostFactory() {
         var hostFactory = {};
 
-        hostFactory.host = "http://localhost:8080/";
+        hostFactory.host = "http://localhost:8081/";
 
         hostFactory.loginAPI = "api/user/login";
 
@@ -28,10 +28,6 @@
         hostFactory.expiringBatchesAPI = "api/batches/expiring";
 
         hostFactory.batchesAPI = "api/batches";
-
-        hostFactory.externalSupplierAPI = "api/supplier";
-
-        hostFactory.externalSuppliersAPI = "api/suppliers";
 
         hostFactory.commissionAPI = "/api/commissions";
 
@@ -79,10 +75,6 @@
 
         hostFactory.getBatchesAPI = getBatchesAPIFn;
 
-        hostFactory.getExternalSupplierAPI = getExternalSupplierAPIFn;
-
-        hostFactory.getExternalSuppliersAPI = getExternalSuppliersAPIFn;
-
         function postOutBatchesAPIFn() {
             return hostFactory.outBatchesAPI;
         }
@@ -101,14 +93,6 @@
 
         function getCommissionAPIFn() {
             return hostFactory.commissionAPI;
-        }
-
-        function getExternalSupplierAPIFn() {
-            return hostFactory.externalSupplierAPI;
-        }
-
-        function getExternalSuppliersAPIFn() {
-            return hostFactory.externalSuppliersAPI;
         }
 
         function getBatchesAPIFn() {

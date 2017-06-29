@@ -1,9 +1,13 @@
-<div class="row">
+<a class="btn btn-app pull-right" ng-click="ctrl.showHistory()">
+  <span class="badge bg-teal">{{ctrl.orderCompleted}}</span>
+  <i class="fa fa-inbox"></i> Storico Ordini
+</a>
 
+<div class="row">
   <div class="col-xs-12" ng-show="ctrl.showOrder == null">
     <div class="box box-info">
       <div class="box-header">
-        <h3 class="box-title">Ordini in entrata</h3>
+        <h3 class="box-title">Ordini Effettuati</h3>
 
         <div class="box-tools">
           <div class="input-group input-group-sm" style="width: 150px;">
@@ -43,10 +47,9 @@
             <td>{{commEntry.commission.destination}}</td>
             <td>{{commEntry.commission.number}}</td>
             <td>{{commEntry.commission.source}}</td>
-            <td ng-show="{{commEntry.commission.completed}} == false"><span
-              class="label label-warning">Incompleto</span>
+            <td ng-show="!commEntry.commission.completed"><span class="label label-warning">Incompleto</span>
             </td>
-            <td ng-show="{{commEntry.commission.completed}} == true"><span class="label label-success">Completo</span>
+            <td ng-show="commEntry.commission.completed"><span class="label label-success">Completo</span>
             </td>
             <td>
               <button type="submit" ng-click="ctrl.showOrderFn(commEntry)" class="btn btn-primary">
@@ -162,6 +165,9 @@
     <!-- /.box-body -->
   </div>
   <!-- /.box -->
+
+  <!-- /.box -->
+
 
   <div class="modal fade" id="modal-default" style="display: none;">
     <div class="modal-dialog">
@@ -322,3 +328,7 @@
   <!-- /.modal-dialog -->
 </div>
 
+</div>
+
+</div>
+</div>

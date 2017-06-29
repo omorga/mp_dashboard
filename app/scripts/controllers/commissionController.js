@@ -2,7 +2,7 @@
 (function () {
     'use strict';
 
-    var CommissionCtrl = ['$scope', '$rootScope', '$compile','$http','hostFactory', function ($scope, $rootScope, $compile,$http,hostFactory) {
+    var CommissionCtrl = ['$scope', '$rootScope', '$compile','$http','hostFactory', function ($scope, $rootScope, $compile,$http,hostFactory,hostCentralFactory) {
 
         var ctrl = this;
 
@@ -63,27 +63,16 @@
             product : null
         };
 
-        ctrl.externalSuppliers = [];
-
         ctrl.newOrder = {
-            source:"FoodEmperors",
+            source:"FoodEmperorsMP",
             date:"",
             batches:[],
             completed : false,
-            destination: ctrl.externalSuppliers[0]
+            destination:"FoodEmperors"
+
         };
 
         loadCommissions();
-
-        loadExternalSuppliers();
-
-        function loadExternalSuppliers() {
-            $http.get(hostFactory.getHost()+hostFactory.getExternalSuppliersAPI()).then(function (response) {
-                ctrl.externalSuppliers = response.data;
-            }).catch(function (error) {
-                console.log(error);
-            });
-        }
 
         function getProductsFn(search) {
 
@@ -93,7 +82,7 @@
             if (angular.isDefined(ctrl.category) && ctrl.category!== null && ctrl.category.length > 0 ){
                 if (search!==null && search!==undefined && search.length==3){
                     var param = ctrl.category + " - " + search;
-                    $http.get(hostFactory.getHost()+hostFactory.getFindProductByCategoryAndPropertiesAPI(param)).then(function (res) {
+                    $http.get(hostCentralFactory.getHost()+hostCentralFactory.getFindProductByCategoryAndPropertiesAPI(param)).then(function (res) {
                         ctrl.products = JSON.parse(JSON.stringify(res.data));
                         ctrl.backupProducts =  JSON.parse(JSON.stringify(ctrl.products));
                     }).catch(function (error) {
@@ -147,22 +136,23 @@
                 data.batches[i].price = data.batches[i].number*data.batches[i].quantity*data.batches[i].product.price;
                 data.batches[i].status = 0;
             }
-            $http.post(hostFactory.getHost()+hostFactory.getSaveDeleteUpdateCommissionAPI(),data).then(function (response) {
-                loadCommissions();
-                ctrl.success = true;
-                setTimeout(function () {
-                    ctrl.success = false;
-                    ctrl.switchMode(null);
-                    $scope.$apply();
-                },1500);
+
+          // verso magazzino centrale
+            $http.post(hostCentralFactory.getHost()+hostCentralFactory.getSaveDeleteUpdateCommissionAPI(),data).then(function (response) {
+              ctrl.success = true;
+              setTimeout(function () {
+                ctrl.success = false;
+                ctrl.switchMode(null);
+                $scope.$apply();
+              },1500);
 
             }).catch(function (error) {
-                console.log(error);
-                ctrl.error = true;
-                setTimeout(function () {
-                    ctrl.error = false;
-                    $scope.$apply();
-                },1500);
+              console.log(error);
+              ctrl.error = true;
+              setTimeout(function () {
+                ctrl.error = false;
+                $scope.$apply();
+              },1500);
             });
         }
 
@@ -201,6 +191,24 @@
                     ctrl.error = false;
                     $scope.$apply();
                 },1500);
+            });
+
+            $http.put(hostCentralFactory.getHost()+hostCentralFactory.getSaveDeleteUpdateCommissionAPI(),data).then(function (response) {
+              loadCommissions();
+              ctrl.success = true;
+              setTimeout(function () {
+                ctrl.success = false;
+                ctrl.switchMode(null);
+                $scope.$apply();
+              },1500);
+
+            }).catch(function (error) {
+              console.log(error);
+              ctrl.error = true;
+              setTimeout(function () {
+                ctrl.error = false;
+                $scope.$apply();
+              },1500);
             });
         }
 
@@ -267,6 +275,23 @@
                     $scope.$apply();
                 },1000);
             });
+          $http.delete(hostCentralFactory.getHost()+hostCentralFactory.getSaveDeleteUpdateCommissionAPI()+'/' + ctrl.selected.commission.id).then(function (response) {
+            ctrl.success = true;
+            loadCommissions();
+            setTimeout(function () {
+              ctrl.success = false;
+              ctrl.switchMode(null);
+              $scope.$apply();
+            },1000);
+          }).catch(function (error) {
+            console.log(error);
+            ctrl.error = true;
+            setTimeout(function () {
+              ctrl.error = false;
+              ctrl.switchMode(null);
+              $scope.$apply();
+            },1000);
+          });
         }
 
         function selectFn(commission) {
@@ -292,10 +317,10 @@
                 loadCommissions();
                 ctrl.selected = null;
                 ctrl.newOrder = {
-                    source:"FoodEmperors",
+                    source:"FoodEmperorsMP",
                     date:"",
                     batches:[],
-                    destination: ctrl.externalSuppliers[0]
+                    destination:"FoodEmperors"
                 };
                 ctrl.selectedBatch = {
                     quantity:ctrl.quantities[0],

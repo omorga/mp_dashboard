@@ -64,7 +64,6 @@
 
                 }
 
-
                 $state.go("Profilo Utente");
 
             }).catch(function (error) {
@@ -74,10 +73,6 @@
                     $scope.$apply();
                 },1000);
             });
-
-
-
-
         }
 
     }];
