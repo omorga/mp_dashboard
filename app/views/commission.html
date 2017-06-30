@@ -106,7 +106,7 @@
                             <td>{{batch.quantity}}</td>
                             <td>{{batch.product.averageDeliveryTime}} g</td>
                             <td>{{batch.product.price | currency:'€'}}</td>
-                            <td>{{batch.number*batch.quantity*batch.product.price | currency:'€'}}</td>
+                            <td>{{batch.price| currency:'€'}}</td>
                         </tr>
 
                         </tbody></table>
@@ -247,9 +247,9 @@
                 </div>
                 <br><br>
                 <div class="row">
-                    <div class="col-xs-12 col-md-12 col-lg-12 ">
+                    <div class="col-xs-12 col-md-12 col-lg-12">
                         <div ng-if="ctrl.error" class="callout callout-danger pull-right" style="height:50px">
-                            <p>Errore nel creare l'ordine!</p>
+                            <p>Errore nel creare l'ordine!</p>">
                         </div>
                     </div>
                 </div>

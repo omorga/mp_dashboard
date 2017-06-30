@@ -5,7 +5,7 @@
     function hostFactory() {
         var hostFactory = {};
 
-        hostFactory.host = "http://localhost:8081/";
+        hostFactory.host = "http://localhost:8080/";
 
         hostFactory.loginAPI = "api/user/login";
 

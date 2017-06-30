@@ -8,7 +8,7 @@
   function hostCentralFactory() {
     var hostCentralFactory = {};
 
-    hostCentralFactory.host = "http://localhost:8080/";
+    hostCentralFactory.host = "http://160.80.134.103:8080/";
 
     hostCentralFactory.allProductsAPI = "api/products";
 

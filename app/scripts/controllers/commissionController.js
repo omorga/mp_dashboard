@@ -2,7 +2,7 @@
 (function () {
     'use strict';
 
-    var CommissionCtrl = ['$scope', '$rootScope', '$compile','$http','hostFactory', function ($scope, $rootScope, $compile,$http,hostFactory,hostCentralFactory) {
+    var CommissionCtrl = ['$scope', '$rootScope', '$compile','$http','hostFactory','hostCentralFactory', function ($scope, $rootScope, $compile,$http,hostFactory,hostCentralFactory) {
 
         var ctrl = this;
 
@@ -265,7 +265,7 @@
 
     }];
 
-    CommissionCtrl.$inject = ['$scope', '$rootScope', '$compile','$http','hostFactory'];
+    CommissionCtrl.$inject = ['$scope', '$rootScope', '$compile','$http','hostFactory','hostCentralFactory'];
 
     angular.module('mp-dashboard').controller('CommissionCtrl', CommissionCtrl);
 

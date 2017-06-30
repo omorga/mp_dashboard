@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    var CatalogCtrl = ['$scope', '$rootScope', '$compile','$http','hostFactory', function ($scope, $rootScope, $compile,$http,hostFactory) {
+    var CatalogCtrl = ['$scope', '$rootScope', '$compile','$http','hostFactory','hostCentralFactory', function ($scope, $rootScope, $compile,$http,hostFactory,hostCentralFactory) {
 
       var ctrl = this;
 
@@ -45,7 +45,7 @@
       }
 
       function loadCategories() {
-        $http.get(hostFactory.getHost() + hostFactory.getLeafCategoriesAPI()).then(function (response) {
+        $http.get(hostCentralFactory.getHost() + hostCentralFactory.getLeafCategoriesAPI()).then(function (response) {
           ctrl.categories = response.data;
         }).catch(function (error) {
           console.log(error);
@@ -56,10 +56,7 @@
         if (angular.isDefined(ctrl.category) && ctrl.category.length > 0) {
           if (item.product.category.id.toLowerCase().indexOf(ctrl.category.toLowerCase()) !== -1) {
             return true;
-          }else if(item.product.category.fatherId.toLowerCase().indexOf(ctrl.category.toLowerCase()) !== -1){
-            return true;
-          }
-          else{
+          }else{
             return false;
           }
         }return true;
@@ -88,7 +85,7 @@
 
     }];
 
-  CatalogCtrl.$inject = ['$scope', '$rootScope', '$compile','$http','hostFactory'];
+  CatalogCtrl.$inject = ['$scope', '$rootScope', '$compile','$http','hostFactory','hostCentralFactory'];
 
   angular.module('mp-dashboard').controller('CatalogCtrl', CatalogCtrl);
 
