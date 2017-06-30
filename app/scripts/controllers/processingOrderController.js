@@ -11,6 +11,7 @@
      */
     ctrl.getAllCommission = function () {
       $http.get(hostFactory.getHost() + hostFactory.getCommissionAPI()).then(function (response) {
+        console.log(response.data);
         ctrl.inCommissions = [];
         ctrl.orderCompleted = 0;
         ctrl.commissions = response.data;
@@ -60,11 +61,7 @@
     /**
      * permette di arrivare allo stato di storico, per mostrare lo storico ordini
      */
-    ctrl.showHistory = function () {
-      $state.go("Storico");
-    }
-
-    /**
+     /**
      * serve a far mostrare alla modal la segnalazione del prodotto
      * @param product
      */
@@ -82,6 +79,8 @@
     ctrl.toggle = function (batch, status) {
       if (status) {
         batch.status = 2;
+        batch.remaining = batch.quantity;
+        batch.delDate = ctrl.currentDate();
         ctrl.deliveredProducts.push(batch);
       }
       else {
@@ -108,6 +107,20 @@
         ctrl.checkSignaled.push(info);
       }
     }
+
+    ctrl.confirmDeliveredProduct = function () {
+
+      $http.post(hostFactory.getHost() + hostFactory.postBatchAPI(), ctrl.deliveredProducts).then(function (response) {
+
+        ctrl.showOrderFn(response.data);
+
+
+      }).catch(function (error) {
+        console.log(error);
+      });
+
+    }
+
 
     /**
      * TODO: caso d'uso "SEGNALAZIONE PRODOTTO"

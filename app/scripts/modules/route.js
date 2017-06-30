@@ -118,22 +118,6 @@
         params: {
             home: true
         }
-    }).state('Storico', {
-      parent: 'site',
-      url: '/storico',
-      data: {
-        roles: []
-      },
-      views: {
-        'page@': {
-          templateUrl: "views/history.html",
-          controller: 'HistoryCtrl',
-          controllerAs: 'ctrl'
-        }
-      },
-      params: {
-        home: true
-      }
     }).state('Gestione Account', {
         parent: 'site',
         url: '/account',
