@@ -22,17 +22,11 @@
 
         ctrl.select = selectFn;
 
-        ctrl.deleteCommission = deleteCommissionFn;
-
         ctrl.selectBatch = selectBatchFn;
 
         ctrl.addBatch = addBatchFn;
 
-        ctrl.deleteBatch = deleteBatchFn;
-
         ctrl.saveCommission = saveCommissionFn;
-
-        ctrl.updateCommission = updateCommissionFn;
 
         ctrl.getProducts = getProductsFn;
 
@@ -44,7 +38,7 @@
 
         ctrl.quantities = [];
 
-        ctrl.modify = null;
+        ctrl.show = null;
 
         ctrl.categories = [];
 
@@ -64,7 +58,7 @@
         };
 
         ctrl.newOrder = {
-            source:"FoodEmperorsMP",
+            source:"",
             date:"",
             batches:[],
             completed : false,
@@ -138,63 +132,7 @@
             }
 
           // verso magazzino centrale
-            $http.post(hostCentralFactory.getHost()+hostCentralFactory.getSaveDeleteUpdateCommissionAPI(),data).then(function (response) {
-              ctrl.success = true;
-              setTimeout(function () {
-                ctrl.success = false;
-                ctrl.switchMode(null);
-                $scope.$apply();
-              },1500);
-
-            }).catch(function (error) {
-              console.log(error);
-              ctrl.error = true;
-              setTimeout(function () {
-                ctrl.error = false;
-                $scope.$apply();
-              },1500);
-            });
-        }
-
-        function updateCommissionFn() {
-            var batches = JSON.parse(JSON.stringify(ctrl.selected.batches));
-            if (batches.length === 0){
-                ctrl.error = true;
-                setTimeout(function () {
-                    ctrl.error = false;
-                    $scope.$apply();
-                },1500);
-                return;
-            }
-            var order = JSON.parse(JSON.stringify(ctrl.selected.commission));
-            delete order.batches;
-            var data = {
-                "batches":batches,
-                "commission":order
-            };
-            for (var i = 0 ; i < data.batches.length ; i++){
-                data.batches[i].price = data.batches[i].number*data.batches[i].quantity*data.batches[i].product.price;
-            }
-            $http.put(hostFactory.getHost()+hostFactory.getSaveDeleteUpdateCommissionAPI(),data).then(function (response) {
-                loadCommissions();
-                ctrl.success = true;
-                setTimeout(function () {
-                    ctrl.success = false;
-                    ctrl.switchMode(null);
-                    $scope.$apply();
-                },1500);
-
-            }).catch(function (error) {
-                console.log(error);
-                ctrl.error = true;
-                setTimeout(function () {
-                    ctrl.error = false;
-                    $scope.$apply();
-                },1500);
-            });
-
-            $http.put(hostCentralFactory.getHost()+hostCentralFactory.getSaveDeleteUpdateCommissionAPI(),data).then(function (response) {
-              loadCommissions();
+            $http.post(hostFactory.getHost()+hostFactory.getSaveDeleteUpdateCommissionAPI(),data).then(function (response) {
               ctrl.success = true;
               setTimeout(function () {
                 ctrl.success = false;
@@ -214,7 +152,7 @@
 
         function addBatchFn(commission) {
 
-            ctrl.modify = false;
+            ctrl.show = false;
             ctrl.category = null;
             var add = true;
             var index = 0;
@@ -242,12 +180,8 @@
 
         }
 
-        function deleteBatchFn(index,commission) {
-            commission.batches.splice(index,1);
-        }
-
         function selectBatchFn(batch) {
-            ctrl.modify = true;
+            ctrl.show = true;
             ctrl.selectedBatch = batch;
             for (var i = 0 ; i < ctrl.products.length ; i++){
                 if (ctrl.products[i].name === ctrl.selectedBatch.product.name &&
@@ -256,44 +190,6 @@
                 }
             }
         }
-
-        function deleteCommissionFn() {
-            $http.delete(hostFactory.getHost()+hostFactory.getSaveDeleteUpdateCommissionAPI()+'/' + ctrl.selected.commission.id).then(function (response) {
-                ctrl.success = true;
-                loadCommissions();
-                setTimeout(function () {
-                    ctrl.success = false;
-                    ctrl.switchMode(null);
-                    $scope.$apply();
-                },1000);
-            }).catch(function (error) {
-                console.log(error);
-                ctrl.error = true;
-                setTimeout(function () {
-                    ctrl.error = false;
-                    ctrl.switchMode(null);
-                    $scope.$apply();
-                },1000);
-            });
-          $http.delete(hostCentralFactory.getHost()+hostCentralFactory.getSaveDeleteUpdateCommissionAPI()+'/' + ctrl.selected.commission.id).then(function (response) {
-            ctrl.success = true;
-            loadCommissions();
-            setTimeout(function () {
-              ctrl.success = false;
-              ctrl.switchMode(null);
-              $scope.$apply();
-            },1000);
-          }).catch(function (error) {
-            console.log(error);
-            ctrl.error = true;
-            setTimeout(function () {
-              ctrl.error = false;
-              ctrl.switchMode(null);
-              $scope.$apply();
-            },1000);
-          });
-        }
-
         function selectFn(commission) {
             ctrl.clicked = true;
             if (ctrl.selected === commission){
@@ -312,12 +208,12 @@
         function switchModeFn(mode) {
 
             ctrl.mode = mode;
-            ctrl.modify = false;
+            ctrl.show = false;
             if (!ctrl.mode){
                 loadCommissions();
                 ctrl.selected = null;
                 ctrl.newOrder = {
-                    source:"FoodEmperorsMP",
+                    source:"",
                     date:"",
                     batches:[],
                     destination:"FoodEmperors"
@@ -358,7 +254,7 @@
         }
 
         function loadCategories() {
-            $http.get(hostFactory.getHost()+hostFactory.getLeafCategoriesAPI()).then(function (response) {
+            $http.get(hostCentralFactory.getHost()+hostCentralFactory.getLeafCategoriesAPI()).then(function (response) {
                 ctrl.categories = response.data;
             }).catch(function (error) {
                 console.log(error);
