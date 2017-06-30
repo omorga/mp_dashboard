@@ -221,6 +221,7 @@
                                 <th>Prezzo Unit.</th>
                                 <th>Prezzo Tot.</th>
                             </tr>
+
                             <tr ng-repeat="batch in ctrl.newOrder.batches" style="cursor:pointer;" ng-class="{'selected': ctrl.selectedBatch === batch}"
                                 ng-click="ctrl.selectBatch(batch)">
                                 <td>{{batch.product.name}}</td>
