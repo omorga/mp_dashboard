@@ -21,23 +21,11 @@
 
         ctrl.user = null;
 
-        ctrl.menulist = [
-
-        ];
+        ctrl.menulist = userFactory.menu;
 
         ctrl.signout = signoutFn;
 
-        $scope.$watch(function () {
-            return userFactory.user;
-        }, function (res) {
-            ctrl.user = userFactory.getUser();
-        })
 
-        $scope.$watch(function () {
-            return userFactory.menu;
-        }, function (res) {
-           ctrl.menulist = userFactory.getMenu();
-        })
 
         function goFn(location) {
             $state.go(location);

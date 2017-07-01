@@ -116,6 +116,7 @@
             var dd = today.getDate();
             var mm = today.getMonth()+1;
             var yyyy = today.getFullYear();
+            var ms = today.getTime();
 
             if(dd<10) {
                 dd='0'+dd;
@@ -125,7 +126,7 @@
             }
             today = dd+'/'+mm+'/'+yyyy;
             data.commission.date = today;
-            data.commission.number = dd+mm+yyyy;
+            data.commission.number = ''+ms;
             for (var i = 0 ; i < data.batches.length ; i++){
                 data.batches[i].price = data.batches[i].number*data.batches[i].quantity*data.batches[i].product.price;
                 data.batches[i].status = 0;

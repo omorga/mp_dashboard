@@ -169,7 +169,8 @@
 
                         </div>
                     </div>
-                    <br><div class="row">
+                    <br>
+                <div class="row">
                     <div class="col-md-3 col-lg-4 col-xs-6">
                         <div class="form-group">
                             <label> <span style="font-weight:normal!important;">Quantità</span></label>
@@ -179,7 +180,7 @@
                     <div class="col-md-3 col-lg-4 col-xs-6">
                         <div class="form-group">
                             <label> <span style="font-weight:normal!important;">Dimensione</span></label>
-                            <select class="form-control col-lg-6" ng-options="quantity as quantity for quantity in ctrl.quantities " ng-model="ctrl.selectedBatch.quantity">
+                            <select class="form-control col-lg-6" ng-options="quantity as quantity for quantity in ctrl.selectedBatch.product.pack " ng-model="ctrl.selectedBatch.quantity">
 
                             </select>
                         </div>
@@ -238,9 +239,9 @@
                             </tbody></table>
                     </div>
                 </div>
-            </div>
+
             <!-- /.box-body -->
-            <div class="box-footer clearfix">
+            <div class="box-footer">
                 <div class="btn-group pull-right">
                     <button type="button" ng-disabled = "ctrl.newOrder.batches.length < 1 " class="btn btn-default" ng-click="ctrl.saveCommission()" >Salva</button>
                     <button type="button" class="btn btn-default" ng-click="ctrl.switchMode(null)" >Indietro</button>

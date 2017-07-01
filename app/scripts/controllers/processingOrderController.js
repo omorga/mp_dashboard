@@ -16,18 +16,34 @@
         ctrl.commissions = response.data;
         ctrl.commissions.forEach(function (entry) {
           if (!entry.commission.completed) {
-            if (entry.commission.destination == "FoodEmperors")
+            console.log(ctrl.checkReceived(entry.batches));
+            if (entry.commission.destination == "FoodEmperors" && ctrl.checkReceived(entry.batches))
               ctrl.inCommissions.push(entry);
           }
           else
             ctrl.orderCompleted++;
         });
+        console.log(ctrl.inCommissions)
       }).catch(function (error) {
         console.log(error);
       });
     }
 
     ctrl.getAllCommission();
+
+    ctrl.checkReceived = function(batches)
+    {
+       // batches.forEach(function (entry) {
+       //   if (entry.delDate)
+       //       return true;
+      //});
+        for (var i = 0 ; i < batches.length ; i++){
+            if (batches[i].delDate)
+                return true;
+        }
+
+      return false;
+    }
 
     /**
      * Serve a mostrare la tabella con la gestione dell'ordine, se è nullo mostra la lista degli ordini totali disponibili
