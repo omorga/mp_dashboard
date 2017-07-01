@@ -11,7 +11,6 @@
      */
     ctrl.getAllCommission = function () {
       $http.get(hostFactory.getHost() + hostFactory.getCommissionAPI()).then(function (response) {
-        console.log(response.data);
         ctrl.inCommissions = [];
         ctrl.orderCompleted = 0;
         ctrl.commissions = response.data;
@@ -43,7 +42,6 @@
        ctrl.getAllCommission();
      } else {
        ctrl.showOrder = order;
-       console.log(ctrl.showOrder);
        var i;
        for (i = 0; i < order.batches.length; i++)
          ctrl.selectedBatches[i] = 0;
@@ -78,16 +76,17 @@
      */
     ctrl.toggle = function (batch, status) {
       if (status) {
-        batch.status = 2;
-        batch.remaining = batch.quantity;
-        batch.delDate = ctrl.currentDate();
-        ctrl.deliveredProducts.push(batch);
+
+        ctrl.appBatch= JSON.parse(JSON.stringify(batch));
+        ctrl.appBatch.status = 2;
+        ctrl.appBatch.remaining = batch.quantity;
+        ctrl.appBatch.delDate = ctrl.currentDate();
+        ctrl.deliveredProducts.push(ctrl.appBatch);
       }
       else {
         ctrl.idx = ctrl.deliveredProducts.indexOf(batch);
         ctrl.deliveredProducts.splice(ctrl.idx, 1);
       }
-      console.log(ctrl.deliveredProducts);
     }
 
     ctrl.checkSignaled = [];
