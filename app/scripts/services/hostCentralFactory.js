@@ -10,13 +10,13 @@
 
     hostCentralFactory.host = "http://160.80.134.103:8080/";
 
-    hostCentralFactory.allProductsAPI = "api/products";
+    hostCentralFactory.allProductsAPI = "api/pos/products";
 
     hostCentralFactory.saveDeleteUpdateCommissionAPI = "api/commission";
 
     hostCentralFactory.findProductByPropertiesAPI = "api/product/findby/category/properties";
 
-    hostCentralFactory.leafCategories = "api/categories/leaf";
+    hostCentralFactory.leafCategories = "api/pos/categories/leaf";
 
     hostCentralFactory.productAPI = "api/product";
 
