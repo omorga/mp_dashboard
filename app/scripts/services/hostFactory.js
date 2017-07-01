@@ -19,8 +19,6 @@
 
         hostFactory.findProductByPropertiesAPI = "api/product/findby/category/properties";
 
-        hostFactory.leafCategories = "api/categories/leaf";
-
         hostFactory.deliveryNoteAPI = "api/delivery";
 
         hostFactory.productAPI = "api/product";
@@ -67,8 +65,6 @@
 
         hostFactory.getFindProductByCategoryAndPropertiesAPI = getFindProductByCategoryAndPropertiesAPIFn;
 
-        hostFactory.getLeafCategoriesAPI = getLeafCategoriesAPIFn;
-
         hostFactory.getProductAPI = getProductAPIFn;
 
         hostFactory.getExpiringBatchesAPI = getExpiringBatchesAPIFn;
@@ -105,10 +101,6 @@
 
         function getProductAPIFn() {
             return hostFactory.productAPI;
-        }
-
-        function getLeafCategoriesAPIFn() {
-            return hostFactory.leafCategories;
         }
 
         function getFindProductByCategoryAndPropertiesAPIFn(properties) {

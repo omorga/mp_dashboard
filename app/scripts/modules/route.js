@@ -37,40 +37,7 @@
       params: {
         home: true
       }
-    }).state('Login', {
-        parent: 'site',
-        url: '/login',
-        data: {
-            roles: []
-        },
-        views: {
-            'page@': {
-                templateUrl: "views/login.html",
-                controller: 'LoginCtrl',
-                controllerAs: 'ctrl'
-            }
-        },
-        params: {
-            home: true
-        }
-    }).state('Profilo Utente', {
-        parent: 'site',
-        url: '/utente',
-        data: {
-            roles: []
-        },
-        views: {
-            'page@': {
-                templateUrl: "views/user.html",
-                controller: 'UserCtrl',
-                controllerAs: 'ctrl'
-            }
-        },
-        params: {
-            home: true
-        }
-
-  }).state('Catalogo Prodotti', {
+    }).state('Catalogo Prodotti', {
     parent: 'site',
     url: '/catalogo',
     data: {
@@ -118,38 +85,6 @@
         params: {
             home: true
         }
-    }).state('Gestione Account', {
-        parent: 'site',
-        url: '/account',
-        data: {
-            roles: []
-        },
-        views: {
-            'page@': {
-                templateUrl: "views/account.html",
-                controller: 'AccountCtrl',
-                controllerAs: 'ctrl'
-            }
-        },
-        params: {
-            home: true
-        }
-    }).state('Registrazione', {
-        parent: 'site',
-        url: '/registrazione',
-        data: {
-            roles: []
-        },
-        views: {
-            'page@': {
-                templateUrl: "views/createUser.html",
-                controller: 'RegistrationCtrl',
-                controllerAs: 'ctrl'
-            }
-        },
-        params: {
-            home: true
-        }
-    })
+    });
   }
 }());

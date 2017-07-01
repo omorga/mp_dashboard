@@ -131,7 +131,6 @@
                 data.batches[i].status = 0;
             }
 
-          // verso magazzino centrale
             $http.post(hostFactory.getHost()+hostFactory.getSaveDeleteUpdateCommissionAPI(),data).then(function (response) {
               ctrl.success = true;
               setTimeout(function () {

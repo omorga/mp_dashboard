@@ -22,10 +22,12 @@
             return userFactory.menu;
         }
 
-        function setMenuFn(menu) {
-            if (menu!==null && menu!==undefined){
-                userFactory.menu = menu;
-            }
+        function setMenuFn() {
+          userFactory.menu = [
+            { label: "Catalogo Prodotti", state: "Catalogo Prodotti", icon: "fa fa-database" },
+            { label: "Gestione Ordini", state:"Gestione Ordini", icon:"fa fa-file"},
+            { label: "Evasione Ordini", state: "Evasione Ordini", icon: "fa fa-file-o"},
+        ];
         }
 
 
