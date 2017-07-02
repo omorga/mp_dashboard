@@ -22,7 +22,6 @@
           <tbody>
           <tr data-toggle="collapse" data-target="#demo1" class="accordion-toggle">
             <th>Data</th>
-            <th>Tempi di Spedizione</th>
             <th>Destinatario</th>
             <th>Numero</th>
             <th>Mittente</th>
@@ -38,7 +37,6 @@
 
           <tr ng-repeat="commEntry in ctrl.inCommissions">
             <td>{{commEntry.commission.date}}</td>
-            <td>{{commEntry.commission.deliveryTime}}</td>
             <td>{{commEntry.commission.destination}}</td>
             <td>{{commEntry.commission.number}}</td>
             <td>{{commEntry.commission.source}}</td>
@@ -74,13 +72,11 @@
             <tbody>
             <tr>
               <th>Data</th>
-              <th>Tempi di Spedizione</th>
               <th>Destinatario</th>
               <th>Numero</th>
               <th>Mittente</th>
             </tr>
             <td>{{ctrl.showOrder.commission.date}}</td>
-            <td>{{ctrl.showOrder.commission.deliveryTime}}</td>
             <td>{{ctrl.showOrder.commission.destination}}</td>
             <td>{{ctrl.showOrder.commission.number}}</td>
             <td>{{ctrl.showOrder.commission.source}}</td>

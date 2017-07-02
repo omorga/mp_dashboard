@@ -28,7 +28,6 @@
                             <th>Sorgente</th>
                             <th>Destinazione</th>
                             <th>Data</th>
-                            <th>Tempo Consegna</th>
                         </tr>
                         <tr style="cursor:pointer;" ng-repeat="commission in ctrl.commissions | filter:ctrl.searchFilter" ng-class="{'selected': ctrl.selected === commission}"
                             ng-click="ctrl.select(commission)">
@@ -36,7 +35,6 @@
                             <td>{{commission.commission.source}}</td>
                             <td>{{commission.commission.destination}}</td>
                             <td>{{commission.commission.date}}</td>
-                            <td>{{commission.commission.deliveryTime}} g </td>
                         </tr>
 
                         </tbody></table>
@@ -73,14 +71,12 @@
                             <th>Sorgente</th>
                             <th>Destinazione</th>
                             <th>Data</th>
-                            <th>Tempo Consegna</th>
                         </tr>
                         <tr >
                             <td>{{ctrl.selected.commission.number}}</td>
                             <td>{{ctrl.selected.commission.source}}</td>
                             <td>{{ctrl.selected.commission.destination}}</td>
                             <td>{{ctrl.selected.commission.date}}</td>
-                            <td>{{ctrl.selected.commission.deliveryTime }} g </td>
                         </tr>
 
                         </tbody></table>

@@ -372,7 +372,7 @@ module.exports = function (grunt) {
       dist: {
         options: {
           module: 'mp-dashboard',
-          htmlmin: '<%= htmlmin.dist.options %>',
+          //htmlmin: '<%= htmlmin.dist.options %>',
           usemin: 'scripts/scripts.js'
         },
         cwd: '<%= yeoman.app %>',
