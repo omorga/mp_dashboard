@@ -23,4 +23,4 @@ Eseguire il comando  `grunt serve` per lanciare l'applicazione in modalità svil
 ##Deployment
 
 Eseguire il comando  `grunt build`, prendere il contenuto della directory  `dist`
-e copiarloa directory del WebServer scelto per la distribuzione
+e copiarlo directory del WebServer scelto per la distribuzione
